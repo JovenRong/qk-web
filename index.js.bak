@@ -1,7 +1,0 @@
-const Path = require('path')
-
-const QKApplication = require('./lib/index')
-
-const SITE_BASE = __dirname
-QKApplication.init(SITE_BASE, {a:1}).start()
-
