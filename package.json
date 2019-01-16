@@ -1,0 +1,50 @@
+{
+  "name": "qk-hapi",
+  "version": "1.0.0",
+  "description": "7k7k nodejs web framework",
+  "main": "lib/index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "tsc-watch": "tsc -w",
+    "build": "gulp build",
+    "start": "node build/index.js",
+    "setup": "npm install",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon --watch build/ build/lib/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/7kgame/qk-hapi.git"
+  },
+  "keywords": [
+    "7k7k",
+    "hapi"
+  ],
+  "author": "cyij",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/7kgame/qk-hapi/issues"
+  },
+  "homepage": "https://github.com/7kgame/qk-hapi#readme",
+  "dependencies": {
+    "hapi": "^17.8.1",
+    "hoek": "^6.x.x",
+    "inert": "^5.1.2"
+  },
+  "devDependencies": {
+    "@types/hapi": "^17.8.2",
+    "@types/hoek": "^4.1.3",
+    "@types/inert": "^5.1.2",
+    "@types/node": "^10.12.18",
+    "eslint": "^5.12.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "gulp": "^4.0.0",
+    "node-dev": "^3.1.3",
+    "nodemon": "^1.18.9",
+    "tsc": "^1.20150623.0",
+    "typescript": "^3.2.2",
+    "typescript-eslint-parser": "^21.0.2"
+  }
+}
