@@ -25,6 +25,30 @@ class ComponentManager {
             });
         });
     }
+    static addService(key, target) {
+        if (ComponentManager.services.get(key)) {
+            return;
+        }
+        if (typeof key === 'string' && ComponentManager.services.get(target)) {
+            ComponentManager.services.set(key, ComponentManager.services.get(target));
+        }
+        else {
+            ComponentManager.services.set(key, {
+                target: target,
+                ins: null
+            });
+        }
+    }
+    static getService(key) {
+        if (!ComponentManager.services.get(key)) {
+            return;
+        }
+        if (!ComponentManager.services.get(key).ins) {
+            let target = ComponentManager.services.get(key).target;
+            ComponentManager.services.get(key).ins = new target();
+        }
+        return ComponentManager.services.get(key).ins;
+    }
     static addMeta(meta) {
         ComponentManager.targetPropertyMetas.push(meta);
     }
@@ -90,7 +114,7 @@ class ComponentManager {
     }
 }
 ComponentManager.controllers = {};
-ComponentManager.services = {};
+ComponentManager.services = new Map();
 ComponentManager.components = {};
 ComponentManager.repositories = {};
 ComponentManager.targetPropertyMetas = [];

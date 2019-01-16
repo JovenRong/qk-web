@@ -16,7 +16,7 @@ enum MetaType {
 
 export default class ComponentManager {
   private static controllers = {}
-  private static services = {}
+  private static services = new Map()
   private static components = {}
   private static repositories = {}
 
@@ -43,6 +43,31 @@ export default class ComponentManager {
     })
   }
 
+  public static addService (key: any, target: any): void {
+    if (ComponentManager.services.get(key)) {
+      return
+    }
+    if (typeof key === 'string' && ComponentManager.services.get(target)) {
+      ComponentManager.services.set(key, ComponentManager.services.get(target))
+    } else {
+      ComponentManager.services.set(key, {
+        target: target,
+        ins: null
+      })
+    }
+  }
+
+  public static getService (key: any) {
+    if ( !ComponentManager.services.get(key) ) {
+      return
+    }
+    if (!ComponentManager.services.get(key).ins) {
+      let target = ComponentManager.services.get(key).target
+      ComponentManager.services.get(key).ins = new target()
+    }
+    return ComponentManager.services.get(key).ins
+  }
+
   public static addMeta (meta): void {
     ComponentManager.targetPropertyMetas.push(meta)
   }
@@ -61,7 +86,6 @@ export default class ComponentManager {
         this.processControllerMetas()
         break
     }
-    
   }
 
   private processControllerMetas() {

@@ -1,5 +1,7 @@
 import Controller from './controller'
 import { All, Get, Post, Put, Patch, Options } from './methods'
+import Autowired from './autowired'
+import Service from './service'
 
 export {
   Controller,
@@ -8,5 +10,7 @@ export {
   Post,
   Put,
   Patch,
-  Options
+  Options,
+  Autowired,
+  Service
 }

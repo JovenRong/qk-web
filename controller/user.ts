@@ -1,7 +1,11 @@
-import { Controller, Get, Post } from '../lib/decorators'
+import { Controller, Get, Post, Autowired } from '../lib/decorators'
+import UserService from './UserService'
 
 @Controller('/user')
 export default class User {
+
+  @Autowired('userService' || UserService)
+  private userService: UserService;
 
   constructor () {
   
@@ -9,7 +13,7 @@ export default class User {
 
   @Get('/process/{uid}')
   public process ({ uid }) {
-    return 'this is user process ' + uid
+    return 'this is user process ' + uid + ', ' + this.userService.hello()
   }
 
 
