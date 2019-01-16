@@ -14,10 +14,10 @@ let User = class User {
     constructor() {
     }
     process({ uid }) {
-        console.log('this is user process ' + uid);
+        return 'this is user process ' + uid;
     }
     list() {
-        console.log('this is user list');
+        return 'this is user list';
     }
 };
 __decorate([

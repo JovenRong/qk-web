@@ -8,14 +8,14 @@ export default class User {
   }
 
   @Get('/process/{uid}')
-  public process ({ uid }): void {
-    console.log('this is user process ' + uid)
+  public process ({ uid }) {
+    return 'this is user process ' + uid
   }
 
 
   @Post('/list')
-  public list (): void {
-    console.log('this is user list')
+  public list () {
+    return 'this is user list'
   }
 }
 
