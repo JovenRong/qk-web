@@ -55,21 +55,22 @@ gulp.task('watch', shell.task([
  * Copy config files
  */
 gulp.task('configs', (cb) => {
-  return gulp.src("src/configurations/*.json")
-    .pipe(gulp.dest('./build/src/configurations'));
+  return gulp.src(['src/config/**/*.yml', 'src/config/**/*.json'])
+    .pipe(gulp.dest('./build/src/config'));
 });
 
 /**
  * Build the project.
  */
-gulp.task('build', ['tslint', 'compile', 'configs'], () => {
+gulp.task('build', gulp.series('tslint', 'compile', 'configs', (done) => {
   console.log('Building the project ...');
-});
+  done && done();
+}));
 
 /**
  * Run tests.
  */
-gulp.task('test', ['build'], (cb) => {
+gulp.task('test', gulp.series('build', (cb) => {
   const envs = env.set({
     NODE_ENV: 'test'
   });
@@ -81,6 +82,6 @@ gulp.task('test', ['build'], (cb) => {
       console.log(error);
       process.exit(1);
     });
-});
+}));
 
-gulp.task('default', ['build']);
+gulp.task('default', gulp.series('build'));

@@ -1,3 +1,3 @@
-import QKApplication from './application'
+import Application from './application';
 
-export default QKApplication
+export default Application;

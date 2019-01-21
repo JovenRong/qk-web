@@ -12,13 +12,15 @@ const Hapi = require("hapi");
 const Inert = require("inert");
 const Hoek = require("hoek");
 const componentManager_1 = require("./componentManager");
+const prestart_1 = require("./prestart");
 const defaultOptions = {
     root: process.cwd(),
     port: 3000,
     host: 'localhost',
 };
-class QKApplication {
+class Application {
     constructor(options) {
+        this.applicationConfigurations = {};
         options = Hoek.applyToDefaults(defaultOptions, options, true);
         this.root = options.root;
         this.server = new Hapi.Server({
@@ -29,6 +31,7 @@ class QKApplication {
     }
     start() {
         return __awaiter(this, void 0, void 0, function* () {
+            prestart_1.default(this);
             let componentManager = new componentManager_1.default(this);
             componentManager.scan(this.options.componentDirs || [this.root]);
             yield this.server.register(Inert);
@@ -44,8 +47,13 @@ class QKApplication {
             */
         });
     }
+    addConfiguration(configuration) {
+        Hoek.merge(this.applicationConfigurations, configuration, false, true);
+        console.log(JSON.stringify(this.applicationConfigurations));
+    }
 }
-exports.default = QKApplication;
+exports.default = Application;
+;
 //process.on('unhandledRejection', (err) => {
 //  console.log(err);
 //  process.exit(1);

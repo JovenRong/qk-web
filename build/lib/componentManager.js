@@ -9,9 +9,10 @@ var MetaType;
     MetaType[MetaType["Component"] = 3] = "Component";
     MetaType[MetaType["Repository"] = 4] = "Repository";
 })(MetaType || (MetaType = {}));
+;
 class ComponentManager {
-    constructor(qkApplication) {
-        this.qkApplication = qkApplication;
+    constructor(application) {
+        this.application = application;
     }
     scan(dirs) {
         dirs.forEach(dir => {
@@ -78,7 +79,6 @@ class ComponentManager {
                 return;
             }
             path = targetPath + path.replace(URL_PATH_TRIM, '');
-            console.log(meta);
             let key = path + "\0" + meta.method;
             ComponentManager.controllers[key] = {
                 path: path,
@@ -92,7 +92,7 @@ class ComponentManager {
     }
     addRouter(key) {
         let meta = ComponentManager.controllers[key];
-        this.qkApplication.server.route({
+        this.application.server.route({
             method: meta.method,
             path: meta.path,
             handler: (request, h) => {
@@ -119,4 +119,5 @@ ComponentManager.components = {};
 ComponentManager.repositories = {};
 ComponentManager.targetPropertyMetas = [];
 exports.default = ComponentManager;
+;
 //# sourceMappingURL=componentManager.js.map

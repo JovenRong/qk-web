@@ -17,4 +17,5 @@ function readDirSync(path, cb) {
     });
 }
 exports.readDirSync = readDirSync;
+;
 //# sourceMappingURL=fs.js.map

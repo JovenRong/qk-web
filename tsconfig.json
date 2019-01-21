@@ -10,8 +10,8 @@
     "typeRoots": ["node_modules/@types"]
   },
   "include": [
-    "**.ts",
-    "controller/**/**.ts",
+    "src/**.ts",
+    "src/controller/**/**.ts",
     "lib/**/**.ts",
     "test/**/**.ts"
   ],

@@ -1,41 +1,44 @@
-import * as Path from 'path'
-import * as Hapi from "hapi"
-import * as Inert from "inert"
-import * as Hoek from "hoek"
+import * as Path from 'path';
+import * as Hapi from "hapi";
+import * as Inert from "inert";
+import * as Hoek from "hoek";
 
-import QKComponentManager from './componentManager'
+import ComponentManager from './componentManager';
+import PreStart from './prestart';
 
 const defaultOptions = {
   root: process.cwd(),
   port: 3000,
   host: 'localhost',
-}
+};
 
-export default class QKApplication {
+export default class Application {
 
-  public root: String
+  public root: String;
+  public applicationConfigurations = {};
 
-  private options: any
-  public server: Hapi.Server
+  private options: any;
+  public server: Hapi.Server;
 
   constructor (options) {
-    options = Hoek.applyToDefaults(defaultOptions, options, true)
-    this.root = options.root
+    options = Hoek.applyToDefaults(defaultOptions, options, true);
+    this.root = options.root;
 
     this.server = new Hapi.Server({
       port: options.port,
       host: options.host
-    })
-    this.options = options
+    });
+    this.options = options;
   }
 
   public async start (): Promise<void> {
-    let componentManager = new QKComponentManager(this)
-    componentManager.scan(this.options.componentDirs || [this.root])
+    PreStart(this);
+    let componentManager = new ComponentManager(this);
+    componentManager.scan(this.options.componentDirs || [this.root]);
 
-    await this.server.register(Inert)
-    await this.server.start()
-    console.log(`Server running at: ${this.server.info.uri}`)
+    await this.server.register(Inert);
+    await this.server.start();
+    console.log(`Server running at: ${this.server.info.uri}`);
 
     /*
     this.server.route({
@@ -46,7 +49,12 @@ export default class QKApplication {
     })
     */
   }
-}
+
+  public addConfiguration (configuration): void {
+    Hoek.merge(this.applicationConfigurations, configuration, false, true);
+    console.log(JSON.stringify(this.applicationConfigurations));
+  }
+};
 
 //process.on('unhandledRejection', (err) => {
 //  console.log(err);

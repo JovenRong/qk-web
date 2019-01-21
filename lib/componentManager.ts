@@ -1,43 +1,43 @@
-import * as fs from 'fs'
-import * as Path from 'path'
-import * as Hapi from "hapi"
+import * as fs from 'fs';
+import * as Path from 'path';
+import * as Hapi from 'hapi';
 
-import { readDirSync } from './utils'
-import QKApplication from './application'
+import { readDirSync } from './utils';
+import Application from './application';
 
-const URL_PATH_TRIM = /^\/*|\/*$/g
+const URL_PATH_TRIM = /^\/*|\/*$/g;
 
 enum MetaType {
   Controller = 1,
   Service,
   Component,
   Repository
-}
+};
 
 export default class ComponentManager {
-  private static controllers = {}
-  private static services = new Map()
-  private static components = {}
-  private static repositories = {}
+  private static controllers = {};
+  private static services = new Map();
+  private static components = {};
+  private static repositories = {};
 
-  private static targetPropertyMetas = []
-  private static targetMetaType: MetaType
-  private static targetMeta
+  private static targetPropertyMetas = [];
+  private static targetMetaType: MetaType;
+  private static targetMeta;
 
-  private qkApplication: QKApplication
+  private application: Application;
 
-  constructor (qkApplication: QKApplication) {
-    this.qkApplication = qkApplication
+  constructor (application: Application) {
+    this.application = application;
   }
 
   public scan (dirs: String[]): void {
     dirs.forEach( dir => {
       readDirSync(dir, (fpath, isFile) => {
         if (fpath.endsWith('.js')) {
-          ComponentManager.targetPropertyMetas = []
-          ComponentManager.targetMeta = null
-          require(fpath)
-          this.processTargetMeta(fpath)
+          ComponentManager.targetPropertyMetas = [];
+          ComponentManager.targetMeta = null;
+          require(fpath);
+          this.processTargetMeta(fpath);
         }
       })
     })
@@ -45,95 +45,94 @@ export default class ComponentManager {
 
   public static addService (key: any, target: any): void {
     if (ComponentManager.services.get(key)) {
-      return
+      return;
     }
     if (typeof key === 'string' && ComponentManager.services.get(target)) {
-      ComponentManager.services.set(key, ComponentManager.services.get(target))
+      ComponentManager.services.set(key, ComponentManager.services.get(target));
     } else {
       ComponentManager.services.set(key, {
         target: target,
         ins: null
-      })
+      });
     }
   }
 
   public static getService (key: any) {
     if ( !ComponentManager.services.get(key) ) {
-      return
+      return;
     }
     if (!ComponentManager.services.get(key).ins) {
-      let target = ComponentManager.services.get(key).target
-      ComponentManager.services.get(key).ins = new target()
+      let target = ComponentManager.services.get(key).target;
+      ComponentManager.services.get(key).ins = new target();
     }
-    return ComponentManager.services.get(key).ins
+    return ComponentManager.services.get(key).ins;
   }
 
   public static addMeta (meta): void {
-    ComponentManager.targetPropertyMetas.push(meta)
+    ComponentManager.targetPropertyMetas.push(meta);
   }
 
   public static addControllerMeta (meta): void {
-    ComponentManager.targetMetaType = MetaType.Controller
-    ComponentManager.targetMeta = meta
+    ComponentManager.targetMetaType = MetaType.Controller;
+    ComponentManager.targetMeta = meta;
   }
 
   private processTargetMeta (fpath): void {
     if (ComponentManager.targetPropertyMetas.length < 1 || !ComponentManager.targetMeta) {
-      return
+      return;
     }
     switch (ComponentManager.targetMetaType) {
       case MetaType.Controller:
-        this.processControllerMetas()
-        break
+        this.processControllerMetas();
+        break;
     }
   }
 
   private processControllerMetas() {
-    let targetPath = ComponentManager.targetMeta.path || ''
-    targetPath = targetPath.replace(URL_PATH_TRIM, '')
+    let targetPath = ComponentManager.targetMeta.path || '';
+    targetPath = targetPath.replace(URL_PATH_TRIM, '');
     if (targetPath) {
-      targetPath = '/' + targetPath + '/'
+      targetPath = '/' + targetPath + '/';
     }
     ComponentManager.targetPropertyMetas.forEach ( meta => {
-      let path = meta.path || null
+      let path = meta.path || null;
       if (!path) {
-        return
+        return;
       }
-      path = targetPath + path.replace(URL_PATH_TRIM, '')
-      console.log(meta)
-      let key = path + "\0" + meta.method
+      path = targetPath + path.replace(URL_PATH_TRIM, '');
+      let key = path + "\0" + meta.method;
       ComponentManager.controllers[key] = {
         path: path,
         method: meta.method,
         target: ComponentManager.targetMeta.target,
         handler: meta.handler,
         ins: null
-      }
-      this.addRouter(key)
+      };
+      this.addRouter(key);
     })
   }
 
   private addRouter (key) {
-    let meta = ComponentManager.controllers[key]
-    this.qkApplication.server.route({
+    let meta = ComponentManager.controllers[key];
+    this.application.server.route({
       method: meta.method,
       path: meta.path,
       handler: (request: Hapi.Request, h: Hapi.ResponseToolkit) => {
         if (!meta.ins) {
-          meta.ins = new meta.target()
+          meta.ins = new meta.target();
         }
         if (request.method === 'options') {
-          return ''
+          return '';
         } 
-        let ret = meta.ins[meta.handler](request.params)
+        let ret = meta.ins[meta.handler](request.params);
         if (!ret) {
-          return ''
+          return '';
         } else {
-          return ret
+          return ret;
         }
       }
     })
 
   }
 
-} 
+};

@@ -1,5 +1,5 @@
-import { readDirSync } from './fs'
+import { readDirSync } from './fs';
 
 export {
   readDirSync
-}
+};
