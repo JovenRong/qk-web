@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const decorator_1 = require("../../lib/decorator");
+const lib_1 = require("../../lib");
 let UserService = class UserService {
     constructor() {
         console.log('new UserService');
@@ -19,7 +19,7 @@ let UserService = class UserService {
     }
 };
 UserService = __decorate([
-    decorator_1.Service('userService0'),
+    lib_1.Service('userService0'),
     __metadata("design:paramtypes", [])
 ], UserService);
 exports.default = UserService;

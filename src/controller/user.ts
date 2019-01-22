@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Autowired } from '../../lib/decorator';
+import { Controller, Get, Post, Autowired } from '../../lib';
 import UserService from './UserService';
 import PayService from './PayService';
 

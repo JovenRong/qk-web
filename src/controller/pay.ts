@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '../../lib/decorator';
+import { Controller, Get, Post } from '../../lib';
 import Mongo from '../../lib/dao/storage/MongoTemplate';
 
 @Controller('/pay')

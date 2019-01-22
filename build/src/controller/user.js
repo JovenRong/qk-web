@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const decorator_1 = require("../../lib/decorator");
+const lib_1 = require("../../lib");
 const UserService_1 = require("./UserService");
 const PayService_1 = require("./PayService");
 let User = class User {
@@ -25,27 +25,27 @@ let User = class User {
     }
 };
 __decorate([
-    decorator_1.Autowired('userService0'),
+    lib_1.Autowired('userService0'),
     __metadata("design:type", UserService_1.default)
 ], User.prototype, "userService", void 0);
 __decorate([
-    decorator_1.Autowired,
+    lib_1.Autowired,
     __metadata("design:type", PayService_1.default)
 ], User.prototype, "payService", void 0);
 __decorate([
-    decorator_1.Get('/process/{uid}'),
+    lib_1.Get('/process/{uid}'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], User.prototype, "process", null);
 __decorate([
-    decorator_1.Post('/list'),
+    lib_1.Post('/list'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], User.prototype, "list", null);
 User = __decorate([
-    decorator_1.Controller('/user'),
+    lib_1.Controller('/user'),
     __metadata("design:paramtypes", [])
 ], User);
 exports.default = User;

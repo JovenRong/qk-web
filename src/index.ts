@@ -1,4 +1,4 @@
-import Application from '../lib/';
+import { Application } from '../lib';
 
 const SITE_BASE = __dirname;
 

@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const decorator_1 = require("../../lib/decorator");
+const lib_1 = require("../../lib");
 const MongoTemplate_1 = require("../../lib/dao/storage/MongoTemplate");
 let Pay = class Pay {
     constructor() {
@@ -24,19 +24,19 @@ let Pay = class Pay {
     }
 };
 __decorate([
-    decorator_1.Get('/process'),
+    lib_1.Get('/process'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], Pay.prototype, "process", null);
 __decorate([
-    decorator_1.Post('/edit'),
+    lib_1.Post('/edit'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], Pay.prototype, "edit", null);
 Pay = __decorate([
-    decorator_1.Controller('/pay'),
+    lib_1.Controller('/pay'),
     __metadata("design:paramtypes", [])
 ], Pay);
 exports.default = Pay;

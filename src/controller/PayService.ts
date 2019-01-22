@@ -1,4 +1,4 @@
-import { Service, Autowired } from '../../lib/decorator';
+import { Service, Autowired } from '../../lib';
 
 @Service
 export default class PayService {
