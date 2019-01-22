@@ -5,6 +5,6 @@
 
 ```
 npm install
-npm run tsc // build typescript
+npm run build // build typescript
 npm run start
 ```
