@@ -54,17 +54,5 @@ class MongoDao {
     }
 }
 exports.default = MongoDao;
-/*
-export default function () {
-
-  const db = conn.db(dbName);
-  const col = db.collection('user');
-  col.find({}).toArray(function(err, items) {
-    console.log(items);
-    console.log('item',items.length);
-  });
-
-  //client.close()
-};
- */
+;
 //# sourceMappingURL=mongo.js.map

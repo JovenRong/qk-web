@@ -15,9 +15,21 @@ let UserService = class UserService {
         console.log('new UserService');
     }
     hello() {
+        let dbName = 'sc_user';
+        let client = this.mongo.getClient();
+        const db = client.db(dbName);
+        const col = db.collection('user');
+        col.find({}).toArray(function (err, items) {
+            console.log(items);
+            console.log('item', items.length);
+        });
         return 'hello userService';
     }
 };
+__decorate([
+    lib_1.Autowired('mongo.primary'),
+    __metadata("design:type", Object)
+], UserService.prototype, "mongo", void 0);
 UserService = __decorate([
     lib_1.Service('userService0'),
     __metadata("design:paramtypes", [])

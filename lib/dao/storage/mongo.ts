@@ -48,17 +48,4 @@ export default class MongoDao implements IDao {
       await this.client.close();
     }
   }
-}
-  /*
-export default function () {
-
-    const db = conn.db(dbName);
-    const col = db.collection('user');
-    col.find({}).toArray(function(err, items) {
-      console.log(items);
-      console.log('item',items.length);
-    });
-
-    //client.close()
 };
-   */
