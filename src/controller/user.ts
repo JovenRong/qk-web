@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Autowired } from '../../lib';
-import UserService from './UserService';
-import PayService from './PayService';
+import UserService from '../lib/account/UserService';
+import PayService from '../lib/account/PayService';
 
 @Controller('/user')
 export default class User {

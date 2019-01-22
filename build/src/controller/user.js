@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const lib_1 = require("../../lib");
-const UserService_1 = require("./UserService");
-const PayService_1 = require("./PayService");
+const UserService_1 = require("../lib/account/UserService");
+const PayService_1 = require("../lib/account/PayService");
 let User = class User {
     constructor() {
         console.log('init user');
