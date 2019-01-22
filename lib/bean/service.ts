@@ -21,4 +21,7 @@ export default class Service {
     return Bean.getBean0(Service.container, name);
   }
 
+  public static async destroy (): Promise<void> {
+  }
+
 }

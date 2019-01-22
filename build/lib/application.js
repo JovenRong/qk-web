@@ -37,11 +37,31 @@ class Application {
             yield this.server.register(Inert);
             yield this.server.start();
             console.log(`Server running at: ${this.server.info.uri}`);
+            this.registerExit();
         });
     }
     addConfiguration(configuration) {
         Hoek.merge(this.applicationConfigurations, configuration, false, true);
-        console.log(JSON.stringify(this.applicationConfigurations));
+    }
+    registerExit() {
+        let exitHandler = function (options, code) {
+            if (options && options.exit) {
+                console.log('application exit at', code);
+                bean_1.default.destroy();
+                process.exit();
+            }
+            else {
+                console.log('exception', code);
+            }
+        };
+        process.on('exit', exitHandler.bind(this, { exit: true }));
+        // catches ctrl+c event
+        process.on('SIGINT', exitHandler.bind(this, { exit: true }));
+        // catches "kill pid"
+        process.on('SIGUSR1', exitHandler.bind(this, { exit: true }));
+        process.on('SIGUSR2', exitHandler.bind(this, { exit: true }));
+        // catches uncaught exceptions
+        process.on('uncaughtException', exitHandler.bind(this, { exit: false }));
     }
 }
 exports.default = Application;

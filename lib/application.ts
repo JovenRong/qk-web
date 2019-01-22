@@ -40,11 +40,35 @@ export default class Application {
     await this.server.register(Inert);
     await this.server.start();
     console.log(`Server running at: ${this.server.info.uri}`);
+    this.registerExit();
   }
 
   public addConfiguration (configuration): void {
     Hoek.merge(this.applicationConfigurations, configuration, false, true);
-    console.log(JSON.stringify(this.applicationConfigurations));
+  }
+
+  private registerExit (): void {
+    let exitHandler = function (options, code) {
+      if (options && options.exit) {
+        console.log('application exit at', code);
+        BeanFactory.destroy();
+        process.exit();
+      } else {
+        console.log('exception', code);
+      }
+    };
+
+    process.on('exit', exitHandler.bind(this, {exit: true}));
+
+    // catches ctrl+c event
+    process.on('SIGINT', exitHandler.bind(this, {exit: true}));
+
+    // catches "kill pid"
+    process.on('SIGUSR1', exitHandler.bind(this, {exit: true}));
+    process.on('SIGUSR2', exitHandler.bind(this, {exit: true}));
+
+    // catches uncaught exceptions
+    process.on('uncaughtException', exitHandler.bind(this, {exit: false}));
   }
 };
 

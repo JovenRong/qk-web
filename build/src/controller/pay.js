@@ -16,6 +16,9 @@ let Pay = class Pay {
         console.log('init pay');
     }
     process() {
+        setTimeout(function () {
+            throw new Error('opps');
+        }, 1000);
         console.log('this is pay process');
         MongoTemplate_1.default();
     }

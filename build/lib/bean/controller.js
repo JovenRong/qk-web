@@ -75,6 +75,10 @@ class Controller {
             middlewares: middleware
         });
     }
+    static destroy() {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
+    }
 }
 Controller.container = new Map();
 exports.default = Controller;

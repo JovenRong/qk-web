@@ -49,7 +49,9 @@ class Bean {
     static getBean(name) {
         return Bean.getBean0(Bean.container, name);
     }
-    static destory() {
+    static destroy() {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
     }
     static remove(name) {
     }

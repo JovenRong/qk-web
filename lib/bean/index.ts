@@ -26,4 +26,10 @@ export default class BeanFactory {
     await Service.initBeans();
     await Controller.initBeans();
   }
+
+  public static async destroy (): Promise<void> {
+    await Bean.destroy();                                                
+    await Service.destroy();                                             
+    await Controller.destroy();
+  }
 }

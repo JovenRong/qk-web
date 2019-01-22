@@ -78,4 +78,8 @@ export default class Controller {
       middlewares: middleware
     });
   }
+
+  public static async destroy (): Promise<void> {
+  }
+
 }

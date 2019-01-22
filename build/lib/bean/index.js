@@ -30,6 +30,13 @@ class BeanFactory {
             yield controller_1.default.initBeans();
         });
     }
+    static destroy() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield bean_1.default.destroy();
+            yield service_1.default.destroy();
+            yield controller_1.default.destroy();
+        });
+    }
 }
 exports.default = BeanFactory;
 //# sourceMappingURL=index.js.map

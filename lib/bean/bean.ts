@@ -50,7 +50,7 @@ export default class Bean {
     return Bean.getBean0(Bean.container, name);
   }
 
-  public static destory (): void {
+  public static async destroy (): Promise<void> {
   }
 
   public static remove (name): void {

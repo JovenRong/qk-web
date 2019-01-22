@@ -10,6 +10,9 @@ export default class Pay {
 
   @Get('/process')
   public process (): void {
+    setTimeout(function () {
+      throw new Error('opps');
+    }, 1000);
     console.log('this is pay process');
     Mongo();
   }

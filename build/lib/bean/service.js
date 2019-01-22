@@ -24,6 +24,10 @@ class Service {
     static getBean(name) {
         return bean_1.default.getBean0(Service.container, name);
     }
+    static destroy() {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
+    }
 }
 Service.container = new Map();
 exports.default = Service;
