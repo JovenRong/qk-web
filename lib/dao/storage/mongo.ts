@@ -39,6 +39,10 @@ export default class MongoDao implements IDao {
     return this.client;
   }
 
+  public getClient (): MongoClient {
+    return this.client;
+  }
+
   public async disconnect (): Promise<void> {
     if ( this.client ) {
       await this.client.close();

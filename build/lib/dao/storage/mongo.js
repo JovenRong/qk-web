@@ -42,6 +42,9 @@ class MongoDao {
             return this.client;
         });
     }
+    getClient() {
+        return this.client;
+    }
     disconnect() {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.client) {
