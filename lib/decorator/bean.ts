@@ -1,12 +1,12 @@
-import Service from '../bean/service';
+import Bean from '../bean/bean';
 
 export default function (name: any) {
   if (typeof name === 'string') {
     return (target): void => {
-      Service.addBean(name || target, target);
+      Bean.addBean(name || target, target);
     };
   } else {
-    Service.addBean(name, name);
+    Bean.addBean(name, name);
     return name;
   }
 };

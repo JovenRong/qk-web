@@ -1,12 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const componentManager_1 = require("../componentManager");
-function default_1(path, middleware) {
+const controller_1 = require("../bean/controller");
+function default_1(path, middlewares) {
     return (target) => {
-        componentManager_1.default.addControllerMeta({
-            target,
-            path,
-            middleware
+        controller_1.default.addBean(target, {
+            path: path,
+            middlewares: middlewares
         });
     };
 }

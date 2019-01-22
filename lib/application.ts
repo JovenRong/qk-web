@@ -3,7 +3,7 @@ import * as Hapi from "hapi";
 import * as Inert from "inert";
 import * as Hoek from "hoek";
 
-import ComponentManager from './componentManager';
+import BeanFactory from './bean';
 import PreStart from './prestart';
 
 const defaultOptions = {
@@ -33,21 +33,13 @@ export default class Application {
 
   public async start (): Promise<void> {
     PreStart(this);
-    let componentManager = new ComponentManager(this);
-    componentManager.scan(this.options.componentDirs || [this.root]);
+
+    let dirs = this.options.componentDirs || [this.root];
+    await BeanFactory.scan(this, dirs);
 
     await this.server.register(Inert);
     await this.server.start();
     console.log(`Server running at: ${this.server.info.uri}`);
-
-    /*
-    this.server.route({
-      method: '*',
-      path: '/{p*}',
-      handler: (request: Hapi.Request, h: Hapi.ResponseToolkit) => {
-      }
-    })
-    */
   }
 
   public addConfiguration (configuration): void {

@@ -1,12 +1,8 @@
-import ComponentManager from '../componentManager';
+import Controller from '../bean/controller';
 
-function decoratorFactory(method: string, path: string, middleware?: any) {
+function decoratorFactory(method: string, path: string, middlewares?: any) {
   return (target: any, key: string, descriptor: any) => {
-    ComponentManager.addMeta({
-      method,
-      path,
-      handler: key
-    });
+    Controller.addMethod(target, method, path, key, middlewares);
     return descriptor;
   };
 }

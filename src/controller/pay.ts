@@ -5,6 +5,7 @@ import Mongo from '../../lib/dao/storage/MongoTemplate';
 export default class Pay {
 
   constructor () {
+    console.log('init pay');
   }
 
   @Get('/process')

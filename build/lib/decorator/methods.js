@@ -1,13 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const componentManager_1 = require("../componentManager");
-function decoratorFactory(method, path, middleware) {
+const controller_1 = require("../bean/controller");
+function decoratorFactory(method, path, middlewares) {
     return (target, key, descriptor) => {
-        componentManager_1.default.addMeta({
-            method,
-            path,
-            handler: key
-        });
+        controller_1.default.addMethod(target, method, path, key, middlewares);
         return descriptor;
     };
 }

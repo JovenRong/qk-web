@@ -19,7 +19,7 @@ let UserService = class UserService {
     }
 };
 UserService = __decorate([
-    decorator_1.Service(),
+    decorator_1.Service('userService0'),
     __metadata("design:paramtypes", [])
 ], UserService);
 exports.default = UserService;

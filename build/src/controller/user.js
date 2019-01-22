@@ -11,21 +11,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const decorator_1 = require("../../lib/decorator");
 const UserService_1 = require("./UserService");
+const PayService_1 = require("./PayService");
 let User = class User {
     constructor() {
+        console.log('init user');
     }
     process({ uid }) {
         //return 'hello';
-        return 'this is user process ' + uid + ', ' + this.userService.hello();
+        return 'this is user process ' + uid + ', ' + this.userService.hello() + ', ' + this.payService.hello();
     }
     list() {
         return 'this is user list';
     }
 };
 __decorate([
-    decorator_1.Autowired(UserService_1.default),
+    decorator_1.Autowired('userService0'),
     __metadata("design:type", UserService_1.default)
 ], User.prototype, "userService", void 0);
+__decorate([
+    decorator_1.Autowired,
+    __metadata("design:type", PayService_1.default)
+], User.prototype, "payService", void 0);
 __decorate([
     decorator_1.Get('/process/{uid}'),
     __metadata("design:type", Function),

@@ -10,34 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const decorator_1 = require("../../lib/decorator");
-const MongoTemplate_1 = require("../../lib/dao/storage/MongoTemplate");
-let Pay = class Pay {
+let PayService = class PayService {
     constructor() {
-        console.log('init pay');
+        console.log('new payService');
     }
-    process() {
-        console.log('this is pay process');
-        MongoTemplate_1.default();
-    }
-    edit() {
-        console.log('this is pay edit');
+    hello() {
+        return 'hello payService';
     }
 };
-__decorate([
-    decorator_1.Get('/process'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], Pay.prototype, "process", null);
-__decorate([
-    decorator_1.Post('/edit'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], Pay.prototype, "edit", null);
-Pay = __decorate([
-    decorator_1.Controller('/pay'),
+PayService = __decorate([
+    decorator_1.Service,
     __metadata("design:paramtypes", [])
-], Pay);
-exports.default = Pay;
-//# sourceMappingURL=pay.js.map
+], PayService);
+exports.default = PayService;
+//# sourceMappingURL=PayService.js.map

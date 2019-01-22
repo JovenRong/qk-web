@@ -1,11 +1,10 @@
-import ComponentManager from '../componentManager';
+import Controller from '../bean/controller';
 
-export default function (path?: string, middleware?: any) {
+export default function (path?: string, middlewares?: any) {
   return (target): void => {
-    ComponentManager.addControllerMeta({
-      target,
-      path,
-      middleware
-    })
+    Controller.addBean(target, {
+      path: path,
+      middlewares: middlewares
+    });
   };
 };

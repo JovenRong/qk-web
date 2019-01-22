@@ -11,7 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Hapi = require("hapi");
 const Inert = require("inert");
 const Hoek = require("hoek");
-const componentManager_1 = require("./componentManager");
+const bean_1 = require("./bean");
 const prestart_1 = require("./prestart");
 const defaultOptions = {
     root: process.cwd(),
@@ -32,19 +32,11 @@ class Application {
     start() {
         return __awaiter(this, void 0, void 0, function* () {
             prestart_1.default(this);
-            let componentManager = new componentManager_1.default(this);
-            componentManager.scan(this.options.componentDirs || [this.root]);
+            let dirs = this.options.componentDirs || [this.root];
+            yield bean_1.default.scan(this, dirs);
             yield this.server.register(Inert);
             yield this.server.start();
             console.log(`Server running at: ${this.server.info.uri}`);
-            /*
-            this.server.route({
-              method: '*',
-              path: '/{p*}',
-              handler: (request: Hapi.Request, h: Hapi.ResponseToolkit) => {
-              }
-            })
-            */
         });
     }
     addConfiguration(configuration) {

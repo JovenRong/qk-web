@@ -1,6 +1,6 @@
 import { Service, Autowired } from '../../lib/decorator';
 
-@Service
+@Service('userService0')
 export default class UserService {
 
   constructor () {
