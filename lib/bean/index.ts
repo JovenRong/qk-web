@@ -4,14 +4,16 @@ import * as Path from 'path';
 import { readDirSync } from '../utils';
 import Application from '../application';
 
-import Controller from './controller';
-import Service from './service';
+import Dao from './dao';
 import Bean from './bean';
+import Service from './service';
+import Controller from './controller';
 
 export default class BeanFactory {
 
   public static async scan (application: Application, dirs: String[]): Promise<void> {
     Bean.init(application);
+    Dao.init();
     Service.init();
     Controller.init();
 
@@ -22,12 +24,14 @@ export default class BeanFactory {
         }
       })
     })
+    await Dao.initBeans();
     await Bean.initBeans();
     await Service.initBeans();
     await Controller.initBeans();
   }
 
   public static async destroy (): Promise<void> {
+    await Dao.destroy();
     await Bean.destroy();                                                
     await Service.destroy();                                             
     await Controller.destroy();

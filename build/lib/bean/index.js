@@ -9,13 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const utils_1 = require("../utils");
-const controller_1 = require("./controller");
-const service_1 = require("./service");
+const dao_1 = require("./dao");
 const bean_1 = require("./bean");
+const service_1 = require("./service");
+const controller_1 = require("./controller");
 class BeanFactory {
     static scan(application, dirs) {
         return __awaiter(this, void 0, void 0, function* () {
             bean_1.default.init(application);
+            dao_1.default.init();
             service_1.default.init();
             controller_1.default.init();
             dirs.forEach(dir => {
@@ -25,6 +27,7 @@ class BeanFactory {
                     }
                 });
             });
+            yield dao_1.default.initBeans();
             yield bean_1.default.initBeans();
             yield service_1.default.initBeans();
             yield controller_1.default.initBeans();
@@ -32,6 +35,7 @@ class BeanFactory {
     }
     static destroy() {
         return __awaiter(this, void 0, void 0, function* () {
+            yield dao_1.default.destroy();
             yield bean_1.default.destroy();
             yield service_1.default.destroy();
             yield controller_1.default.destroy();

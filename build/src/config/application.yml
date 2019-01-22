@@ -1,9 +1,13 @@
 node-web:
   data:
-    mongodb:
-      bean: primary
-      host: 127.0.0.1
-      port: 27017
-      username:
-      password:
-      database: sc_user
+    #mongo: // one connection
+      # url: mongodb://localhost:27017
+    mongo:
+      -
+        bean: primary
+        url: mongodb://localhost:27017
+        #auth:
+        #  user: ''
+        #  password: ''
+      -
+        url: mongodb://localhost:27017

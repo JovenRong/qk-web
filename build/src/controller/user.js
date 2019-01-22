@@ -12,13 +12,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const lib_1 = require("../../lib");
 const UserService_1 = require("../lib/account/UserService");
 const PayService_1 = require("../lib/account/PayService");
+//import * as ejs from 'ejs';
 let User = class User {
     constructor() {
         console.log('init user');
     }
     process({ uid }) {
+        let userService = new UserService_1.default();
+        let ret = userService.hello();
+        //let filename = '/Users/yijunchen/dev/7k7k/js/qk-web/public/view/a.html', data = {}, options = {};
+        //ejs.renderFile(filename, data, options, function(err, str) {
+        //  console.log(str);
+        //});
         //return 'hello';
-        return 'this is user process ' + uid + ', ' + this.userService.hello() + ', ' + this.payService.hello();
+        return '<div style="color: red">' + ret + 'this is user process ' + uid + ', ' + this.userService.hello() + ', ' + this.payService.hello() + '</div>';
     }
     list() {
         return 'this is user list';

@@ -25,6 +25,7 @@ function default_1() {
     const db = conn.db(dbName);
     const col = db.collection('user');
     col.find({}).toArray(function (err, items) {
+        console.log(items);
         console.log('item', items.length);
     });
     //client.close()

@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Autowired } from '../../lib';
 import UserService from '../lib/account/UserService';
 import PayService from '../lib/account/PayService';
+//import * as ejs from 'ejs';
 
 @Controller('/user')
 export default class User {
@@ -17,8 +18,14 @@ export default class User {
 
   @Get('/process/{uid}')
   public process ({ uid }) {
+    let userService = new UserService();
+    let ret = userService.hello();
+    //let filename = '/Users/yijunchen/dev/7k7k/js/qk-web/public/view/a.html', data = {}, options = {};
+    //ejs.renderFile(filename, data, options, function(err, str) {
+    //  console.log(str);
+    //});
     //return 'hello';
-    return 'this is user process ' + uid + ', ' + this.userService.hello() + ', ' + this.payService.hello();
+    return '<div style="color: red">' + ret + 'this is user process ' + uid + ', ' + this.userService.hello() + ', ' + this.payService.hello() + '</div>';
   }
 
 

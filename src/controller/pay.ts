@@ -1,5 +1,4 @@
 import { Controller, Get, Post } from '../../lib';
-import Mongo from '../../lib/dao/storage/MongoTemplate';
 
 @Controller('/pay')
 export default class Pay {
@@ -14,7 +13,6 @@ export default class Pay {
       throw new Error('opps');
     }, 1000);
     console.log('this is pay process');
-    Mongo();
   }
 
   @Post('/edit')

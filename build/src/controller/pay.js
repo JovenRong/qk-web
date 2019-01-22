@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const lib_1 = require("../../lib");
-const MongoTemplate_1 = require("../../lib/dao/storage/MongoTemplate");
 let Pay = class Pay {
     constructor() {
         console.log('init pay');
@@ -20,7 +19,6 @@ let Pay = class Pay {
             throw new Error('opps');
         }, 1000);
         console.log('this is pay process');
-        MongoTemplate_1.default();
     }
     edit() {
         console.log('this is pay edit');

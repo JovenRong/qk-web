@@ -10,6 +10,8 @@ const defaultOptions = {
   root: process.cwd(),
   port: 3000,
   host: 'localhost',
+  view: process.cwd(),
+  configNS: 'node-web',
 };
 
 export default class Application {
@@ -17,7 +19,7 @@ export default class Application {
   public root: String;
   public applicationConfigurations = {};
 
-  private options: any;
+  public options: any;
   public server: Hapi.Server;
 
   constructor (options) {

@@ -17,6 +17,8 @@ const defaultOptions = {
     root: process.cwd(),
     port: 3000,
     host: 'localhost',
+    view: process.cwd(),
+    configNS: 'node-web',
 };
 class Application {
     constructor(options) {
